@@ -41,7 +41,7 @@
 }
 
 .connectButton:hover {
-   
+    cursor: pointer;
     transform: scale(1.05); 
     background-color: black;
     color: white;

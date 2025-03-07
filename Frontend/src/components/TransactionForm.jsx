@@ -34,7 +34,7 @@ export default function TransactionForm({visitorId,walletConnected,account }) {
     
         const currentVisitor = "0x" + visitorId;
         console.log("hash ", currentVisitor);    
-        const txData = await contract.storeHash('0xe175801042dedf41420cb6da906e173e');
+        const txData = await contract.storeHash(currentVisitor);
         console.log("builded transacton:", txData);
         
     } catch (error) {
@@ -57,7 +57,7 @@ export default function TransactionForm({visitorId,walletConnected,account }) {
               <button
                 type="button"
                 onClick={handleTransaction}
-                className="w-full px-4 py-2 text-white bg-gradient-to-r from-gray-800 to-black rounded-lg hover:from-gray-900 hover:to-gray-700 disabled:bg-gray-300 disabled:text-gray-600"
+                className="w-full px-4 py-2 text-white bg-gradient-to-r from-gray-800 to-black rounded-lg hover:from-gray-900 hover:to-gray-700 disabled:bg-gray-300 disabled:text-gray-600 cursor-pointer"
                 disabled={!walletConnected}
             >
                 Send Transaction
