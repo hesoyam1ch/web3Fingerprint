@@ -1,0 +1,15 @@
+﻿services:
+  postgres:
+    container_name: web3collecting
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: web3_collecting
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: yyt331883
+    ports:
+      - 5433:5432
+    volumes:
+      -  postgres-data:/var/web3collecting/data
+volumes:
+  postgres-data:
