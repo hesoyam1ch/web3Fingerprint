@@ -12,6 +12,6 @@ public class UserInfo
         ComponentInfo = componentInfo;
     }
     public string VisitorId { get; init; }
-    public string ComponentInfo { get; init; }
+    public string ComponentInfo { get; set; }
     
 }
