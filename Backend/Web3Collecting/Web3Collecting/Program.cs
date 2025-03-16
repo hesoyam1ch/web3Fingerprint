@@ -1,4 +1,6 @@
+using Newtonsoft.Json;
 using Web3Collecting.DataAccess;
+using Web3Collecting.Endpoints.UserEndpoints;
 using Web3Collecting.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,12 +23,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.MapControllers();
 app.UseHttpsRedirection();
+app.RegisterUserEndpoints();
 
-var user =  await service.DeleteUserInfoAsync("test2");
-Console.WriteLine("sdsdsd");
+var cc = service.GetCurrentUserInfo("0xc64eac939f934d2aa7374f29d1dbe180");
 
+Console.WriteLine("sds");
 app.Run();
 
 
