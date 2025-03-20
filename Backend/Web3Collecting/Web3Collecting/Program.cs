@@ -28,9 +28,7 @@ app.MapControllers();
 app.UseHttpsRedirection();
 app.RegisterUserEndpoints();
 
-var cc = service.GetCurrentUserInfo("0xc64eac939f934d2aa7374f29d1dbe180");
 
-Console.WriteLine("sds");
 app.Run();
 
 
