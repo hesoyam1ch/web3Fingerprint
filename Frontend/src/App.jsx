@@ -5,11 +5,16 @@ import InformationComponent from './components/Information';
 import AttentionPopup from './components/AttentionPopup';
 import TransactionForm from './components/TransactionForm';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import { use } from 'react';
+
+
+
 
 function App() {
   const [walletConnected, setWalletConnected] = useState(false);
   const [account, setAccount] = useState(null);
   const [fpHash, setFpHash] = useState('');
+  const [componentInfo, setComponentInfo] = useState('');
   const [popupClosed, setPopupClosed] = useState(false);
 
   const toggleWalletConnection = async () => {
@@ -37,6 +42,10 @@ function App() {
     console.log("Wallet disconected!");
   };
 
+  useEffect(()=>{
+
+  },[]  )
+
   useEffect(() => {
     if (popupClosed || localStorage.getItem('popupShown') === 'true') {
       const setFp = async () => {
@@ -46,6 +55,7 @@ function App() {
         const allAgentInfo  = await agent.get();
         console.log('Visitor ID:', allAgentInfo.result.visitorId);
         setFpHash(allAgentInfo.result.visitorId);
+        setComponentInfo(compon);
       };
       setFp();
     }
@@ -60,7 +70,7 @@ function App() {
         disconnectWallet={disconnectWallet}
         account={account}
       />
-      <TransactionForm visitorId={fpHash} walletConnected={walletConnected} account={account}/>
+      <TransactionForm visitorId={fpHash} walletConnected={walletConnected} componentInfo={componentInfo}/>
       <InformationComponent fpHash={fpHash} />
     </>
   );

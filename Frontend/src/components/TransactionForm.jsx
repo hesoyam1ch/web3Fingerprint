@@ -2,8 +2,23 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { Contract } from "ethers";
 import hashStorageABI from "../assets/hashStorage.abi.json"
+import axios from "axios";
 
-export default function TransactionForm({visitorId,walletConnected,account }) {
+export default function TransactionForm({visitorId,walletConnected,componentInfo }) {
+  
+ function prepereComponentInfo(data)
+ {
+  const firstBraceIndex = data.indexOf('{');
+  const endMarkerIndex = data.lastIndexOf('```');
+
+  if (firstBraceIndex === -1 || endMarkerIndex === -1 || firstBraceIndex >= endMarkerIndex) {
+    return null; 
+  }
+
+  return data.slice(firstBraceIndex, endMarkerIndex);
+}
+
+
 
   const handleTransaction = async () => {
     if (!window.ethereum) {
@@ -33,10 +48,22 @@ export default function TransactionForm({visitorId,walletConnected,account }) {
         }
     
         const currentVisitor = "0x" + visitorId;
-        console.log("hash ", currentVisitor);    
+        //const currentVisitor = "0xd0297eb755c67d19f25621018272367c";
+
+        console.log("hash ", currentVisitor);   
+        let componentDto = prepereComponentInfo(componentInfo); 
+        const jsonComponent = JSON.parse(componentDto);
         const txData = await contract.storeHash(currentVisitor);
         console.log("builded transacton:", txData);
         
+
+        var responce = await axios.post("http://localhost:5294/api/users/create",{
+          visitorId: currentVisitor,
+          componentInfo: jsonComponent,
+        })
+
+        console.log(responce.status);
+        console.log(responce.data);
     } catch (error) {
       console.error("error:", error);
     }
