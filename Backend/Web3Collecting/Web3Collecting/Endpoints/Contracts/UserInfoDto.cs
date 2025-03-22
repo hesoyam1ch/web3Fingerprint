@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
+﻿
 namespace Web3Collecting.Endpoints.Contracts;
 
 public class UserInfoDto

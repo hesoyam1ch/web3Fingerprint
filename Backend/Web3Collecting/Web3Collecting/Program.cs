@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using Web3Collecting.DataAccess;
 using Web3Collecting.Endpoints.UserEndpoints;
 using Web3Collecting.Services;
@@ -10,6 +9,16 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UserInfoDbContext>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
+
 
 var app = builder.Build();
 
@@ -27,7 +36,7 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 app.UseHttpsRedirection();
 app.RegisterUserEndpoints();
-
+app.UseCors();
 
 app.Run();
 
